@@ -1,0 +1,174 @@
+\documentclass{article}
+\usepackage[utf8x]{inputenc}
+\usepackage[english,russian]{babel}
+\usepackage{cmap}
+\usepackage{amsthm,amssymb}
+\usepackage{amsmath}
+\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm,bindingoffset=0cm]{geometry}
+
+\newcommand{\tasktitle}[1] {
+	\begin{center}
+		{\large\bf {#1}}
+	\end{center}
+}
+
+
+\newenvironment{task}[1] {
+	\noindent\fbox{\bf {#1}}
+}
+
+\begin{document}
+	
+	\tasktitle{Задание 4.}
+	
+		\begin{task}{ЭкстрИмальные значения}
+		\end{task}
+	\begin{proof}[Условие]
+		Найдите экстремальные значения функции ﻿$z$, зависящей от ﻿$x$﻿ и $﻿y$﻿, для которой справедливо соотношение: ﻿$(x^2+y^2+z^2)^2 = a^2 (x^2 + y^2 - z^2)$, где $a=const,a \not = 0$. 
+		Вы можете или решить данную задачу арифметически, или программно на языке Python, но разрешается использовать только библиотеку NumPy и стандартные библиотеки Python (math, functools, etc...)
+	\end{proof}
+	\begin{proof}[Решение]
+		Перепишем соотношение $(x^2+y^2+z^2)^2 = a^2 (x^2 + y^2 - z^2)$ в следующем виде:
+		$$(x^2+y^2+z^2)^2 = a^2 (x^2 + y^2 - z^2)$$
+		$$(x^2+y^2+z^2)^2 - a^2 (x^2 + y^2 - z^2) = 0$$
+		$$F(x, y, z) = (x^2+y^2+z^2)^2 - a^2 (x^2 + y^2 - z^2), \;\; F(x,y,z) = 0$$
+		
+		Теперь, поскольку в функции $F(x,y,z)$ присутствует "удобная" сумма квадратов $x^2 + y^2$, перейдем от декартовой системы координат к цилиндрической, переход в которую делается следующим образом:
+		\begin{equation*}
+			\begin{cases}
+				$$x(\rho, \varphi, z) = \rho \cos\varphi$$ \\
+				$$y(\rho, \varphi, z) = \rho \sin\varphi$$ \\
+				$$z(\rho, \varphi, z)  = z$$
+			\end{cases}
+		\end{equation*}
+		
+		Тогда $F(x,y,z)$ можно переписать в следующем виде:
+		$$F(x, y, z) = (x^2+y^2+z^2)^2 - a^2 (x^2 + y^2 - z^2)$$
+		$$F(\rho, \varphi, z) = (\rho^2 \cos^2\varphi + \rho^2 \sin^2\varphi + z^2)^2 - a^2(\rho^2 \cos^2\varphi + \rho^2 \sin^2\varphi - z^2)$$
+		$$F(\rho, \varphi, z) = (\rho^2 (\cos^2\varphi + \sin^2\varphi) + z^2)^2 - a^2(\rho^2 (\cos^2\varphi + \sin^2\varphi) - z^2)$$
+		$$F(\rho, \varphi, z) = (\rho^2 + z^2)^2 - a^2(\rho^2 - z^2)$$
+		$$F(\rho, z) = (\rho^2 + z^2)^2 - a^2(\rho^2 - z^2)$$
+		$$F(\rho, z) = \rho^4 + 2\rho^2z^2 + z^4 - a^2\rho^2 + a^2z^2$$
+		
+		Найдем частные производные функции $F(\rho, z)$:
+		$$\frac{\partial F(\rho, z)}{\partial \rho} = 4\rho^3 + 4\rho z^2 -2a^2\rho$$
+		$$\frac{\partial F(\rho, z)}{\partial z} = 4z^3 + 4\rho^2 z +2a^2z$$.
+		
+		Тогда можем найти производную $z'_\rho$:
+		$$z'_\rho = -\dfrac{\frac{\partial F(\rho, z)}{\partial \rho} }{\frac{\partial F(\rho, z)}{\partial z}}$$
+		
+		Из матанализа знаем, что чтобы найти стационарную точку неявно заданной функции $z$ необходимо и достаточно решить следующую систему:
+		\begin{equation*}
+			\begin{cases}
+				$$z'_\rho = 0$$ \\
+				$$F(\rho, z) = 0$$
+			\end{cases}
+		\end{equation*}
+	
+	\begin{equation*}
+		\begin{cases}
+			$$-\dfrac{\frac{\partial F(\rho, z)}{\partial \rho} }{\frac{\partial F(\rho, z)}{\partial z}} = 0$$ \\
+			$$F(\rho, z) = 0$$
+		\end{cases}
+	\end{equation*}
+	
+	\begin{equation*}
+		\begin{cases}
+			$$-\dfrac{4\rho^3 + 4\rho z^2 -2a^2\rho}{4z^3 + 4\rho^2 z +2a^2z} = 0$$ \\
+			$$\rho^4 + 2\rho^2z^2 + z^4 - a^2\rho^2 + a^2z^2 = 0$$
+		\end{cases}
+	\end{equation*}
+
+	Домножим первое уравнение на $-(4z^3 + 4\rho^2 z +2a^2z) \not = 0$:
+	\begin{equation*}
+		\begin{cases}
+			$$4\rho^3 + 4\rho z^2 -2a^2\rho = 0$$ \\
+			$$\rho^4 + 2\rho^2z^2 + z^4 - a^2\rho^2 + a^2z^2 = 0$$
+		\end{cases}
+	\end{equation*}
+	
+	Рассмотрим первое уравнение -- разделим его на $\rho \not = 0$, но сначала рассмотрим случай, когда $\rho=0$: если $\rho = 0$, то $F(0, z) = 0 \Rightarrow z^4 +a^2z^2 = 0$ имеет решение в комплексных корнях: разделим его на $z^2 \not = 0$, поскольку если $z=0$, то 
+	$\frac{\partial F(\rho, z)}{\partial z} \not = 0 \Rightarrow -(4z^3 + 4\rho^2 z +2a^2z) \not = 0 \Rightarrow 0 + 0 + 0 \not = 0$, получаем противоречие.
+	
+	Тогда $z^2 + a^2 = 0 \Rightarrow z^2 = -a^2 \Rightarrow z = \pm \sqrt{-a^2} 
+	\Rightarrow z = \pm ia$. Нашли пару стационарных комплексных точек, далее проверим их.
+	
+	Теперь, разделим первое уравнение на $\rho \not = 0$, получим:
+	$$4\rho^3 + 4\rho z^2 -2a^2\rho = 0$$
+	$$4\rho^2 + 4z^2 -2a^2= 0$$
+	$$\rho^2 = \frac{a^2}{2} - z^2$$
+	
+	Теперь подставим это во второе уравнение:
+	$$\rho^4 + 2\rho^2z^2 + z^4 - a^2\rho^2 + a^2z^2 = 0$$
+	$$\left(\frac{a^2}{2} - z^2\right)^2 + 2\left(\frac{a^2}{2} - z^2\right)z^2 + z^4 - a^2\left(\frac{a^2}{2} - z^2\right) + a^2z^2 = 0$$
+	$$\frac{a^4}{4} - a^2z^2 + z^4 + a^2z^2 - 2z^4 + z^4 - \frac{a^4}{2} + a^2z^2 + a^2z^2=0$$
+	$$\frac{a^4}{4} - \frac{a^4}{2} + 2a^2z^2 = 0$$
+	$$-\frac{a^4}{4}+2a^2z^2 = 0$$
+	
+	Разделим последнее уравнение на $a^2 \not = 0$ (по условию):
+	$$-\frac{a^2}{4}+2z^2 = 0$$
+	$$2z^2 = \frac{a^2}{4}$$
+	$$z^2 = \frac{a^2}{8}$$
+	$$z = \pm \sqrt{\frac{a^2}{8}}$$
+	$$z = \pm \frac{a}{2\sqrt{2}}$$
+	$$\rho^2 = \frac{a^2}{2} - \frac{a^2}{8}$$
+	$$\rho^2 = \frac{3a^2}{8}$$
+	$$\rho = \pm \frac{a\sqrt{3}}{2\sqrt{2}}$$
+	
+	Нашли еще 4 стационарных точки, таким образом стационарных точек всего 6:
+	$$\rho = \pm \frac{a\sqrt{3}}{2\sqrt{2}} , \;\; z = \pm \frac{a}{2\sqrt{2}}$$
+	$$\rho = ∓ \frac{a\sqrt{3}}{2\sqrt{2}} , \;\; z = \pm \frac{a}{2\sqrt{2}}$$
+	$$\rho = 0, \;\; z = \pm ia$$
+	
+	Найдем вторую производную $z''_\rho$:
+	$$z''_\rho = \left(-\dfrac{\frac{\partial F(\rho, z)}{\partial \rho} }{\frac{\partial F(\rho, z)}{\partial z}}\right)'_\rho = 
+	\frac{\partial}{\partial \rho}\left(-\dfrac{\frac{\partial F(\rho, z)}{\partial \rho} }{\frac{\partial F(\rho, z)}{\partial z}}\right) = 
+	\frac{\partial}{\partial \rho}\left(-\dfrac{4\rho^3 + 4\rho z^2 -2a^2\rho}{4z^3 + 4\rho^2 z +2a^2z}\right) = $$
+	$$ = - \dfrac{
+		(12\rho^2 +  4z^2 - 2a^2) \cdot (4z^3 + 4\rho^2 z + 2a^2 z) - (4\rho^3 + 4\rho z^2 -2a^2\rho) \cdot 8 \rho z
+	}
+	{
+		(4z^3 + 4\rho^2 z +2a^2z)^2
+	} =$$
+	$$ = - \dfrac{
+		48 \rho^2 z^3 + 48 \rho^4 z + 24 \rho^2 a^2 z +
+		+ 16z^5 + 16 \rho^2 z^3 + 8a^2 z^3
+		- 8a^2z^3 - 8\rho^2 a^2 z - 4a^4z
+		 - 32\rho^4 z - 32 \rho^2 z^3 + 16 a^2\rho^2 z
+	}
+	{
+		(4z^3 + 4\rho^2 z +2a^2z)^2
+	} = $$
+
+$$ = - \dfrac{
+	-4a^4z + 32a^2 \rho^2 z + 16 \rho^4 z + 32 \rho^2 z^3 + 16z^5
+}
+{
+	(4z^3 + 4\rho^2 z +2a^2z)^2
+}= $$
+$$ = \dfrac{
+	4a^4z - 32a^2 \rho^2 z - 16 \rho^4 z - 32 \rho^2 z^3 - 16z^5
+}
+{
+	(4z^3 + 4\rho^2 z +2a^2z)^2
+}$$
+
+
+Далее, необходимо подставить стационарных точек во вторую производную $z''_\rho$ и посмотреть на знак -- если знак положительный, то точка минимума, если отрицательный, то точка максимума. Опустив громоздкие вычисления, при подстановке стационарных точек $(z, \rho)$ во вторую производную $z''_\rho$, получим:
+$$(z, \rho) = (ia, 0): z''_\rho(z, \rho)= -\frac{3i}{a}$$
+$$(z, \rho) = (-ia, 0): z''_\rho(z, \rho) = \frac{3i}{a}$$
+$$(z, \rho) = \left(\frac{a}{2\sqrt{2}}, \frac{a\sqrt{3}}{2\sqrt{2}} \right): z''_\rho(z, \rho) = -\frac{3}{a\sqrt{2}}$$
+$$(z, \rho) = \left(-\frac{a}{2\sqrt{2}}, \frac{a\sqrt{3}}{2\sqrt{2}} \right): z''_\rho(z, \rho) = \frac{3}{a\sqrt{2}}$$
+$$(z, \rho) = \left(\frac{a}{2\sqrt{2}}, -\frac{a\sqrt{3}}{2\sqrt{2}} \right): z''_\rho(z, \rho) = -\frac{3}{a\sqrt{2}}$$
+$$(z, \rho) = \left(-\frac{a}{2\sqrt{2}}, -\frac{a\sqrt{3}}{2\sqrt{2}} \right): z''_\rho(z, \rho) = \frac{3}{a\sqrt{2}}$$
+	
+Таким образом, первая и вторая стационарные точки, поскольку они комплексные, не имеют смысла -- в комплексной плоскости нет минимумов и максимумов, значения не сравниваются между собой. 
+В случае, когда $a>0$, третья и пятые стационарные точки -- точки максимума, четвертая и шестая точки -- точки минимума. В случае, когда $a<0$ -- все с точностью до наоборот.
+
+Таким образом, экстремальные значения функции $z$ равны $\pm \dfrac{a}{2\sqrt{2}}$.
+	
+	
+	
+	\end{proof}
+	
+\end{document}

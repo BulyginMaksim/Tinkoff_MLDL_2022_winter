@@ -1,0 +1,61 @@
+\documentclass{article}
+\usepackage[utf8x]{inputenc}
+\usepackage[english,russian]{babel}
+\usepackage{cmap}
+\usepackage{amsthm,amssymb}
+\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm,bindingoffset=0cm]{geometry}
+
+\newcommand{\tasktitle}[1] {
+	\begin{center}
+		{\large\bf {#1}}
+	\end{center}
+}
+
+
+\newenvironment{task}[1] {
+	\noindent\fbox{\bf {#1}}
+}
+
+\begin{document}
+	
+	\tasktitle{Задание 5.}
+	
+		\begin{task}{Друзья останутся без подарков?}
+		\end{task}
+	\begin{proof}[Условие]
+		Известно, что $n$﻿ друзей собрались и решили отправить письма Деду Морозу. У каждого есть ﻿11﻿ конверт и ﻿11﻿ письмо. Потом ребята всё перемешали и стали класть письма в конверты. Сколько в среднем писем попадёт в свой конверт?
+	\end{proof}
+	\begin{proof}[Решение]
+		Введем $\xi$ -- случайная величина количества писем, которые попали в свой конверт после перемешивания.
+		
+		Дополнительно, введем $\xi_i$, где $i \in \{1, \cdots, n\}$ -- случайная величина, которая принимает значение 1, если в $i$-ый
+		конверт попало свое письмо, и 0, если в $i$-ый конверт попало не свое письмо.
+		
+		Очевидно, что $\xi = \xi_1 + \cdots + \xi_n$. Тогда найдем распределение случайных величин $\xi_i \;\; \forall i \in \{1, \cdots, n\}$:
+		понятно, что нужное письмо попадет в $i$-ый конверт с вероятностью  $p_1 = \frac{1}{n}$, поскольку из $n$ писем нужное
+		всего одно, также, понятно что нужное письмо не попадет в $i$-ый конверт с вероятностью  $p_2 = \frac{n - 1}{n}$,
+		поскольку из $n$ писем не подходящих в $i$-ый конверт писем всего $n-1$ штука. Тогда $\forall i \in \{1, \cdots, n\}$ случайная величина $\xi_i$ имеет распределение:
+		
+		\begin{table}[h]
+			\begin{center}
+				\begin{tabular}{ |c|c|c|}
+					\hline
+					$\xi_i$ & 0 & 1 \\  
+					\hline
+					$p$ & $\frac{n-1}{n}$ & $\frac{1}{n}$\\
+					\hline
+				\end{tabular}
+			\end{center}
+		\end{table}
+	
+	Теперь $\forall i \in \{1, \cdots, n\}$ мы можем вычислить математическое ожидание случайной величины $\xi_i$:
+	$${\mathbb{E}}\xi_i = 0 \cdot \frac{n-1}{n} + 1 \cdot \frac{1}{n} = \frac{1}{n}$$
+	
+	Теперь, воспользуемся тем, что $\xi_i$ одинаково распределены $\forall i \in \{1, \cdots, n\}$, и тем, что матожидание суммы равно сумме матожиданий и найдем  ${\mathbb{E}}\xi$:
+	$${\mathbb{E}}\xi = {\mathbb{E}} \left(\xi_1 + \cdots + \xi_n \right) = {\mathbb{E}}\xi_1 + \cdots + {\mathbb{E}} \xi_n = 
+	n \cdot {\mathbb{E}} \xi_i = n \cdot \frac{1}{n}  = 1$$
+	
+	Таким образом, поскольку ${\mathbb{E}}\xi  = 1$, то в среднем ровно одно письмо попадет в свой конверт.
+\end{proof}
+	
+\end{document}
