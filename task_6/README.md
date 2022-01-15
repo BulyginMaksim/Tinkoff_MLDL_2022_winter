@@ -43,3 +43,5 @@
 
 `$ python3 game_of_life.py 15 15 -density 0.3 -n_iters 100 -pause_len 0.5`
 
+Примеры результатов запуска игры представлены в `game_of_life_example.ipynb`. 
+

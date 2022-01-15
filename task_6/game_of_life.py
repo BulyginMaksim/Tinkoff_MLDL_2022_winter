@@ -38,14 +38,15 @@ class GameOfLife:
         self.printer.print_messages_lines(self._grid_to_plot())
 
     @property
-    def start_game(self):
-        """This function starts game of life and makes given number of iterations."""
+    def start_new_game(self):
+        """This function starts new game of life and makes given number of iterations."""
         self.field.simulate_random_population()
         for n_iteration in range(self.n_iterations):
             if not self.field.is_state_changed:
                 print('After the last iteration the state has not changed ')
                 print('so the game ends. Final state of game of life:')
                 self.print_current_state()
+                self.field.is_state_changed = True
                 return None
             print(f'ITERATION {n_iteration + 1}/{self.n_iterations}')
             self.print_current_state()
@@ -77,11 +78,11 @@ if __name__ == "__main__":
     parser.add_argument('-pause_len', dest="pause_len", type=float, default=1,
                         help='Length of pause in seconds between iterations of the game')
     args = parser.parse_args()
-    GoL = GameOfLife(
+    gol = GameOfLife(
         n_rows=args.n_rows,
         n_cols=args.n_cols,
         density_value=args.density_value,
         n_iterations=args.n_iterations,
         pause_len=args.pause_len
     )
-    GoL.start_game
+    gol.start_new_game
